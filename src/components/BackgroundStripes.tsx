@@ -35,7 +35,7 @@ export function BackgroundStripes() {
       <meshBasicMaterial
         map={texture}
         transparent
-        opacity={0.05}
+        opacity={0.04}
         depthWrite={false}
         color="#c8ccd6"
       />

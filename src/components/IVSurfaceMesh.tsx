@@ -1,30 +1,14 @@
-import { useMemo, useRef } from "react";
-import { useFrame } from "@react-three/fiber";
+import { useMemo } from "react";
 import * as THREE from "three";
-import { generateIVSurface, EXPIRIES_DAYS, STRIKE_STEPS } from "../ivSurface";
+import { generateIVSurface, STRIKE_STEPS, IV_MIN, IV_MAX } from "../ivSurface";
 import { ivToColor } from "../ivColor";
-import { AxisLabels } from "./AxisLabels";
-
-const WIDTH = 12;
-const DEPTH = 9;
-const HEIGHT = 4.5;
+import { SURFACE_WIDTH, SURFACE_DEPTH, ivToY } from "../layout";
 
 export function IVSurfaceMesh() {
-  const groupRef = useRef<THREE.Group>(null);
-
-  const { geometry, wireGeometry } = useMemo(() => {
+  const { geometry, wireGeometry, dotPositions } = useMemo(() => {
     const grid = generateIVSurface();
-    const rows = grid.length;
-    const cols = STRIKE_STEPS;
-
-    let minIv = Infinity;
-    let maxIv = -Infinity;
-    for (const row of grid) {
-      for (const p of row) {
-        if (p.iv < minIv) minIv = p.iv;
-        if (p.iv > maxIv) maxIv = p.iv;
-      }
-    }
+    const rows = grid.length; // time to expiry
+    const cols = STRIKE_STEPS; // strike
 
     const positions = new Float32Array(rows * cols * 3);
     const colors = new Float32Array(rows * cols * 3);
@@ -32,14 +16,14 @@ export function IVSurfaceMesh() {
     for (let r = 0; r < rows; r++) {
       for (let c = 0; c < cols; c++) {
         const idx = (r * cols + c) * 3;
-        const x = (r / (rows - 1) - 0.5) * WIDTH;
-        const z = (c / (cols - 1) - 0.5) * DEPTH;
-        const y = grid[r][c].iv * HEIGHT;
+        const x = (c / (cols - 1) - 0.5) * SURFACE_WIDTH;
+        const z = (r / (rows - 1) - 0.5) * SURFACE_DEPTH;
+        const y = ivToY(grid[r][c].iv, IV_MIN, IV_MAX);
         positions[idx] = x;
         positions[idx + 1] = y;
         positions[idx + 2] = z;
 
-        const color = ivToColor(grid[r][c].iv, minIv, maxIv);
+        const color = ivToColor(grid[r][c].iv, IV_MIN, IV_MAX);
         colors[idx] = color.r;
         colors[idx + 1] = color.g;
         colors[idx + 2] = color.b;
@@ -65,33 +49,44 @@ export function IVSurfaceMesh() {
 
     const wireGeo = new THREE.WireframeGeometry(geo);
 
-    return { geometry: geo, wireGeometry: wireGeo };
+    return { geometry: geo, wireGeometry: wireGeo, dotPositions: positions };
   }, []);
 
-  useFrame((_, delta) => {
-    if (groupRef.current) {
-      groupRef.current.rotation.y += delta * 0.12;
-    }
-  });
+  const dotCount = dotPositions.length / 3;
 
   return (
-    <group ref={groupRef} position={[0, -HEIGHT / 2, 0]}>
+    <group>
       <mesh geometry={geometry}>
         <meshStandardMaterial
           vertexColors
           side={THREE.DoubleSide}
-          roughness={0.35}
-          metalness={0.15}
+          roughness={0.4}
+          metalness={0.1}
+          transparent
+          opacity={0.82}
           emissive="#0a0a0a"
-          emissiveIntensity={0.15}
+          emissiveIntensity={0.1}
         />
       </mesh>
       <lineSegments geometry={wireGeometry}>
-        <lineBasicMaterial color="#ffffff" transparent opacity={0.08} />
+        <lineBasicMaterial color="#ffffff" transparent opacity={0.1} />
       </lineSegments>
-      <AxisLabels />
+      <instancedMesh
+        args={[undefined, undefined, dotCount]}
+        ref={(el) => {
+          if (!el) return;
+          const dummy = new THREE.Object3D();
+          for (let i = 0; i < dotCount; i++) {
+            dummy.position.set(dotPositions[i * 3], dotPositions[i * 3 + 1], dotPositions[i * 3 + 2]);
+            dummy.updateMatrix();
+            el.setMatrixAt(i, dummy.matrix);
+          }
+          el.instanceMatrix.needsUpdate = true;
+        }}
+      >
+        <sphereGeometry args={[0.035, 8, 8]} />
+        <meshBasicMaterial color="#ffffff" transparent opacity={0.55} />
+      </instancedMesh>
     </group>
   );
 }
-
-export { WIDTH, DEPTH, HEIGHT, EXPIRIES_DAYS };

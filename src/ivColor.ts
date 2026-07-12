@@ -1,8 +1,8 @@
 import { Color } from "three";
 
-const LOW_IV_COLOR = new Color("#2b6cff");
-const MID_IV_COLOR = new Color("#8a5cff");
-const HIGH_IV_COLOR = new Color("#ff3b30");
+const LOW_IV_COLOR = new Color("#1c3fd6");
+const MID_IV_COLOR = new Color("#2ec4c4");
+const HIGH_IV_COLOR = new Color("#ff5a1f");
 
 export function ivToColor(iv: number, min: number, max: number): Color {
   const t = (iv - min) / (max - min);
