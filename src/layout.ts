@@ -1,5 +1,5 @@
 export const SURFACE_WIDTH = 12; // X axis: strike price
-export const SURFACE_DEPTH = 9; // Z axis: time to expiry
+export const SURFACE_DEPTH = 12; // Z axis: time to expiry (square base)
 export const SURFACE_HEIGHT = 4.5; // Y axis: implied vol
 
 export const ORIGIN_X = -SURFACE_WIDTH / 2;

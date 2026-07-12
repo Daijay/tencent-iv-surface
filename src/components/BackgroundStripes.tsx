@@ -22,7 +22,7 @@ function makeStripeTexture(): THREE.CanvasTexture {
   const texture = new THREE.CanvasTexture(canvas);
   texture.wrapS = THREE.RepeatWrapping;
   texture.wrapT = THREE.RepeatWrapping;
-  texture.repeat.set(4, 4);
+  texture.repeat.set(7, 5);
   return texture;
 }
 
@@ -30,8 +30,8 @@ export function BackgroundStripes() {
   const texture = useMemo(() => makeStripeTexture(), []);
 
   return (
-    <mesh position={[0, 0, -14]} renderOrder={-1}>
-      <planeGeometry args={[60, 40]} />
+    <mesh position={[0, 0, -30]} renderOrder={-1}>
+      <planeGeometry args={[110, 80]} />
       <meshBasicMaterial
         map={texture}
         transparent

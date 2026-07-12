@@ -10,7 +10,7 @@ export function Scene() {
 
   return (
     <Canvas
-      camera={{ position: [9, 6, 11], fov: 42 }}
+      camera={{ position: [12, 8, 15], fov: 42 }}
       gl={{
         antialias: true,
         toneMapping: THREE.ACESFilmicToneMapping,
@@ -19,7 +19,7 @@ export function Scene() {
       dpr={[1, 2]}
     >
       <color attach="background" args={["#0a0a0a"]} />
-      <fog attach="fog" args={["#0a0a0a", 18, 36]} />
+      <fog attach="fog" args={["#0a0a0a", 22, 55]} />
 
       {/* Full ambient fill so every face of the surface is clearly lit */}
       <ambientLight intensity={1.1} />
@@ -44,7 +44,7 @@ export function Scene() {
         enableDamping
         dampingFactor={0.08}
         minDistance={6}
-        maxDistance={22}
+        maxDistance={42}
         maxPolarAngle={Math.PI / 1.9}
         onStart={() => {
           isDraggingRef.current = true;
