@@ -1,7 +1,7 @@
 import { Color } from "three";
 
 // Luxury palette: deep sapphire (calm, low vol) through rich amethyst
-// into warm champagne gold (hot, high vol) — jewel tones only.
+// into warm champagne gold (hot, high vol), jewel tones only.
 const LOW_IV_COLOR = new Color("#0b2f6b");
 const MID_IV_COLOR = new Color("#5b2a86");
 const HIGH_IV_COLOR = new Color("#d4af37");
