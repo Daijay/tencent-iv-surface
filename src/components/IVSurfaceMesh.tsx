@@ -69,7 +69,7 @@ export function IVSurfaceMesh() {
         />
       </mesh>
       <lineSegments geometry={wireGeometry}>
-        <lineBasicMaterial color="#ffffff" transparent opacity={0.1} />
+        <lineBasicMaterial color="#ffffff" transparent opacity={0.28} />
       </lineSegments>
       <instancedMesh
         args={[undefined, undefined, dotCount]}

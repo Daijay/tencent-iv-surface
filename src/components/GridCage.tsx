@@ -24,7 +24,7 @@ function GridPlane({ points }: { points: THREE.Vector3[] }) {
   const geometry = useMemo(() => new THREE.BufferGeometry().setFromPoints(points), [points]);
   return (
     <lineSegments geometry={geometry}>
-      <lineBasicMaterial color="#ffffff" transparent opacity={0.3} />
+      <lineBasicMaterial color="#ffffff" transparent opacity={0.5} />
     </lineSegments>
   );
 }
@@ -42,7 +42,7 @@ function AxisLine({ length, axis }: { length: number; axis: "x" | "y" | "z" }) {
   return (
     <line>
       <primitive object={geometry} attach="geometry" />
-      <lineBasicMaterial color="#ffffff" transparent opacity={0.75} />
+      <lineBasicMaterial color="#ffffff" transparent opacity={0.95} />
     </line>
   );
 }
