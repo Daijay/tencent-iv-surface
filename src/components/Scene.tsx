@@ -14,25 +14,28 @@ export function Scene() {
       gl={{
         antialias: true,
         toneMapping: THREE.ACESFilmicToneMapping,
-        toneMappingExposure: 1.15,
+        toneMappingExposure: 1.4,
       }}
       dpr={[1, 2]}
     >
       <color attach="background" args={["#0a0a0a"]} />
-      <fog attach="fog" args={["#0a0a0a", 16, 32]} />
+      <fog attach="fog" args={["#0a0a0a", 18, 36]} />
 
-      {/* Soft ambient fill so no side of the surface goes fully dark */}
-      <ambientLight intensity={0.45} />
-      <hemisphereLight args={["#3a4a6b", "#0a0a0a", 0.5]} />
+      {/* Full ambient fill so every face of the surface is clearly lit */}
+      <ambientLight intensity={1.1} />
+      <hemisphereLight args={["#5a6fa0", "#0a0a0a", 1.0]} />
 
       {/* Key light: warm, from front-top */}
-      <directionalLight position={[7, 11, 6]} intensity={1.6} color="#fff3e0" />
+      <directionalLight position={[7, 11, 6]} intensity={2.6} color="#fff3e0" />
       {/* Fill light: cool, from the opposite side */}
-      <directionalLight position={[-8, 5, -4]} intensity={0.6} color="#7fa4ff" />
+      <directionalLight position={[-8, 5, -4]} intensity={1.4} color="#8fb3ff" />
       {/* Rim light: catches the edges for depth/separation from the background */}
-      <directionalLight position={[0, 4, -10]} intensity={0.7} color="#cfe0ff" />
+      <directionalLight position={[0, 4, -10]} intensity={1.5} color="#dfe9ff" />
+      {/* Under-light so the underside of the bowl isn't lost in shadow */}
+      <directionalLight position={[0, -8, 4]} intensity={0.8} color="#ffe9c7" />
       {/* Low glow near camera to keep the near face readable */}
-      <pointLight position={[9, 4, 11]} intensity={0.5} color="#ffe9c7" distance={30} decay={2} />
+      <pointLight position={[9, 4, 11]} intensity={1.2} color="#ffe9c7" distance={35} decay={2} />
+      <pointLight position={[-6, 6, -8]} intensity={0.8} color="#c9d8ff" distance={35} decay={2} />
 
       <BackgroundStripes />
       <VolatilitySurface isDraggingRef={isDraggingRef} />

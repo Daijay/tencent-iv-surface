@@ -63,9 +63,9 @@ export function IVSurfaceMesh() {
           roughness={0.28}
           metalness={0.35}
           transparent
-          opacity={0.85}
-          emissive="#1a0f2e"
-          emissiveIntensity={0.12}
+          opacity={0.88}
+          emissive="#241536"
+          emissiveIntensity={0.18}
         />
       </mesh>
       <lineSegments geometry={wireGeometry}>
