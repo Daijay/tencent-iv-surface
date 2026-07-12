@@ -60,12 +60,12 @@ export function IVSurfaceMesh() {
         <meshStandardMaterial
           vertexColors
           side={THREE.DoubleSide}
-          roughness={0.4}
-          metalness={0.1}
+          roughness={0.28}
+          metalness={0.35}
           transparent
-          opacity={0.82}
-          emissive="#0a0a0a"
-          emissiveIntensity={0.1}
+          opacity={0.85}
+          emissive="#1a0f2e"
+          emissiveIntensity={0.12}
         />
       </mesh>
       <lineSegments geometry={wireGeometry}>
