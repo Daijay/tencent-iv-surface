@@ -1,0 +1,135 @@
+.app {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background: #0a0a0a;
+  overflow: hidden;
+}
+
+.app canvas {
+  display: block;
+}
+
+.hk-clock {
+  position: fixed;
+  top: 20px;
+  right: 24px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 14px;
+  background: rgba(20, 21, 26, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 10;
+}
+
+.hk-clock__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #4b5563;
+  flex-shrink: 0;
+}
+
+.hk-clock__dot--live {
+  background: #ffb020;
+  box-shadow: 0 0 0 0 rgba(255, 176, 32, 0.6);
+  animation: pulse 1.8s ease-out infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 176, 32, 0.55);
+  }
+  70% {
+    box-shadow: 0 0 0 6px rgba(255, 176, 32, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 176, 32, 0);
+  }
+}
+
+.hk-clock__text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.hk-clock__label {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  color: #6b7280;
+  text-transform: uppercase;
+}
+
+.hk-clock__time {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 14px;
+  font-weight: 500;
+  color: #e8ebf2;
+  font-variant-numeric: tabular-nums;
+}
+
+.legend {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 180px;
+  padding: 12px 14px;
+  background: rgba(20, 21, 26, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 10;
+}
+
+.legend__label {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #8a93a6;
+  margin-bottom: 8px;
+}
+
+.legend__bar {
+  height: 8px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, #2b6cff 0%, #8a5cff 50%, #ff3b30 100%);
+  margin-bottom: 6px;
+}
+
+.legend__scale {
+  display: flex;
+  justify-content: space-between;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10px;
+  color: #6b7280;
+}
+
+.hint {
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: #4b5563;
+  z-index: 10;
+  pointer-events: none;
+}
+
+@media (max-width: 640px) {
+  .legend {
+    width: 140px;
+    padding: 10px 12px;
+  }
+  .hint {
+    display: none;
+  }
+}
